@@ -98,6 +98,16 @@
 	document.onclick = function(e) {
 		playground.createNewCircle(e.x,e.y);
 	}
+
+	window.onload = function(e) {
+		document.getElementById("svg").setAttribute("width", document.body.clientWidth);
+		document.getElementById("svg").setAttribute("height", document.body.clientHeight);
+	}
+
+	window.onresize = function(e) {
+		document.getElementById("svg").setAttribute("width", document.body.clientWidth);
+		document.getElementById("svg").setAttribute("height", document.body.clientHeight);
+	}
 	
 	</script>
 
