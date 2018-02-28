@@ -56,6 +56,14 @@
 			el.setAttribute("cy", this.info.cy);
 		}
 
+		this.collide = function(){
+			var el = document.getElementById(html_id);
+			var r = Math.floor(Math.random()*256);
+			var g = Math.floor(Math.random()*256);
+			var b = Math.floor(Math.random()*256);
+			el.setAttribute("fill", "rgb("+r+","+g+","+b+")");
+		}
+
 		//creates the SVG element and returns it
 		var makeSVG = function(tag, attrs) {
 	        var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -74,8 +82,21 @@
 		var counter = 0;  //counts the number of circles created
 		var circles = [ ]; //array that will hold all the circles created in the app
 
+		this.checkCollisions = function(){
+			for(var i=0; i<circles.length-1; i++) {
+				for(var j=i+1; j<circles.length; j++) {
+					if(Math.sqrt(Math.pow(circles[i].cx-circles[j].cx,2) + Math.pow(circles[i].cy-circles[j].cy,2)) <= (circles[i].cr + circles[j].cr)) {
+						circles[i].collide();
+						circles[j].collide();
+					}
+				}
+			}
+		}
+
 		//a loop that updates the circle's position on the screen
 		this.loop = function(){
+			// TODO: figure out why this isn't working
+			// this.checkCollisions();
 			for(circle in circles)
 			{
 				circles[circle].update(1);
