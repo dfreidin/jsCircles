@@ -61,7 +61,7 @@
 			var r = Math.floor(Math.random()*256);
 			var g = Math.floor(Math.random()*256);
 			var b = Math.floor(Math.random()*256);
-			el.setAttribute("fill", "rgb("+r+","+g+","+b+")");
+			el.setAttribute("style", "fill: rgb("+r+","+g+","+b+")");
 		}
 
 		//creates the SVG element and returns it
@@ -82,21 +82,18 @@
 		var counter = 0;  //counts the number of circles created
 		var circles = [ ]; //array that will hold all the circles created in the app
 
-		this.checkCollisions = function(){
+		//a loop that updates the circle's position on the screen
+		this.loop = function(){
+			// TODO: figure out why this isn't working
+			// this.checkCollisions();
 			for(var i=0; i<circles.length-1; i++) {
 				for(var j=i+1; j<circles.length; j++) {
-					if(Math.sqrt(Math.pow(circles[i].cx-circles[j].cx,2) + Math.pow(circles[i].cy-circles[j].cy,2)) <= (circles[i].cr + circles[j].cr)) {
+					if(Math.pow(circles[i].info.cx-circles[j].info.cx,2) + Math.pow(circles[i].info.cy-circles[j].info.cy,2) <= Math.pow(circles[i].info.cr + circles[j].info.cr,2)) {
 						circles[i].collide();
 						circles[j].collide();
 					}
 				}
 			}
-		}
-
-		//a loop that updates the circle's position on the screen
-		this.loop = function(){
-			// TODO: figure out why this isn't working
-			// this.checkCollisions();
 			for(circle in circles)
 			{
 				circles[circle].update(1);
